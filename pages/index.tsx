@@ -49,7 +49,13 @@ const Home: NextPage = () => {
     ])
   }
 
-  function nextQuestion() {}
+  function nextQuestion() {
+    if (number + 1 === TOTAL_QUESTIONS) {
+      return setGameOver(true)
+    }
+
+    setNumber(number + 1)
+  }
 
   return (
     <>
