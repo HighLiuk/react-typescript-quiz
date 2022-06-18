@@ -1,16 +1,31 @@
+import { Difficulty, getQuestions } from "@/utils/client"
 import type { NextPage } from "next"
 import { useState } from "react"
 import { QuestionCard } from "../components"
 
 const TOTAL_QUESTIONS: number = 10
+const DIFFICULTY: Difficulty = Difficulty.EASY
 
 const Home: NextPage = () => {
+  const [loading, setLoading] = useState(false)
+  const [gameOver, setGameOver] = useState(true)
   const [number, setNumber] = useState(0)
   const [score, setScore] = useState(0)
   const [questions, setQuestions] = useState<Question[]>([])
   const [userAnswers, setUserAnswers] = useState<UserAnswer[]>([])
 
-  async function startTrivia() {}
+  async function startTrivia() {
+    setLoading(true)
+    setGameOver(false)
+
+    const newQuestions = await getQuestions(TOTAL_QUESTIONS, DIFFICULTY)
+    setQuestions(newQuestions)
+
+    setScore(0)
+    setUserAnswers([])
+    setNumber(0)
+    setLoading(false)
+  }
 
   function checkAnswer(answer: string) {}
 
