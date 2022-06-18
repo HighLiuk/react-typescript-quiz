@@ -35,24 +35,33 @@ const Home: NextPage = () => {
     <>
       <h1 className="uppercase">React Quiz</h1>
 
-      <button className="block" onClick={startTrivia}>
-        Start
-      </button>
+      {(gameOver || userAnswers.length === TOTAL_QUESTIONS) && (
+        <button className="block" onClick={startTrivia}>
+          Start
+        </button>
+      )}
 
-      <p>Score: {score}</p>
+      {gameOver || <p>Score: {score}</p>}
 
-      <p>Loading Questions...</p>
+      {loading && <p>Loading Questions...</p>}
 
-      <QuestionCard
-        question={questions[number].question}
-        answers={questions[number].answers}
-        checkAnswer={checkAnswer}
-        userAnswer={userAnswers[number]?.answer}
-        questionNumber={number + 1}
-        totalQuestions={TOTAL_QUESTIONS}
-      />
+      {loading || gameOver || (
+        <>
+          <QuestionCard
+            question={questions[number].question}
+            answers={questions[number].answers}
+            checkAnswer={checkAnswer}
+            userAnswer={userAnswers[number]?.answer}
+            questionNumber={number + 1}
+            totalQuestions={TOTAL_QUESTIONS}
+          />
 
-      <button onClick={nextQuestion}>Next Question</button>
+          {number + 1 === userAnswers.length &&
+            number + 1 !== TOTAL_QUESTIONS && (
+              <button onClick={nextQuestion}>Next Question</button>
+            )}
+        </>
+      )}
     </>
   )
 }
