@@ -27,7 +27,27 @@ const Home: NextPage = () => {
     setLoading(false)
   }
 
-  function checkAnswer(answer: string) {}
+  function checkAnswer(answer: string) {
+    if (gameOver) {
+      return
+    }
+
+    const isCorrect = questions[number].correctAnswer === answer
+
+    if (isCorrect) {
+      setScore((prev) => prev + 1)
+    }
+
+    setUserAnswers((prev) => [
+      ...prev,
+      {
+        question: questions[number].question,
+        correctAnswer: questions[number].correctAnswer,
+        answer,
+        isCorrect,
+      },
+    ])
+  }
 
   function nextQuestion() {}
 
