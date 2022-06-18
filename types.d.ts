@@ -3,3 +3,10 @@ type Question = {
   answers: string[]
   correctAnswer: string
 }
+
+type UserAnswer = {
+  question: string
+  answer: string
+  correctAnswer: string
+  isCorrect: boolean
+}

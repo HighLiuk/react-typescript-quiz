@@ -1,10 +1,18 @@
 import type { NextPage } from "next"
 import { useState } from "react"
+import { QuestionCard } from "../components"
+
+const TOTAL_QUESTIONS: number = 10
 
 const Home: NextPage = () => {
+  const [number, setNumber] = useState(0)
   const [score, setScore] = useState(0)
+  const [questions, setQuestions] = useState<Question[]>([])
+  const [userAnswers, setUserAnswers] = useState<UserAnswer[]>([])
 
   async function startTrivia() {}
+
+  function checkAnswer(answer: string) {}
 
   function nextQuestion() {}
 
@@ -20,7 +28,14 @@ const Home: NextPage = () => {
 
       <p>Loading Questions...</p>
 
-      {/* Question Card */}
+      <QuestionCard
+        question={questions[number].question}
+        answers={questions[number].answers}
+        checkAnswer={checkAnswer}
+        userAnswer={userAnswers[number]?.answer}
+        questionNumber={number + 1}
+        totalQuestions={TOTAL_QUESTIONS}
+      />
 
       <button onClick={nextQuestion}>Next Question</button>
     </>
