@@ -1,3 +1,5 @@
+import { shuffle } from "./misc"
+
 type ApiResponse = {
   results: {
     question: string
@@ -22,7 +24,10 @@ export const getQuestions = async (
   const data: ApiResponse = await res.json()
 
   return data.results.map((question) => {
-    const answers = [...question.incorrect_answers, question.correct_answer]
+    const answers = shuffle([
+      ...question.incorrect_answers,
+      question.correct_answer,
+    ])
 
     return {
       question: question.question,
